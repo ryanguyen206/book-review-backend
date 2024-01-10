@@ -10,6 +10,10 @@ urlpatterns = [
     path('genre/', views.GenreListAPIView.as_view(), name='genre'),
     
     path('book-review/<int:pk>/messages/', views.MessageListOrCreateAPIView.as_view(), name='message-list'),
- 
+    
+    path('user_count/', views.UserCountView.as_view(), name='user_count'),
+    
+   
+        
 
 ]

@@ -4,6 +4,8 @@ from .models import BookReview, Genre, Message
 from .serializer import BookReviewSerializer, GenreSerializer, MessageSerializer
 from rest_framework.response import Response
 from rest_framework import permissions
+from django.contrib.auth.models import User
+from rest_framework import status
 
 #Book
 class OneBookReviewAPIView(generics.RetrieveAPIView):
@@ -66,10 +68,13 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
         return super().perform_create(serializer)
     
 
-    
+# User 
 
-    
-
-    
-    
-    
+class UserCountView(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        user_count = User.objects.count()
+        data = {
+            'user-count':user_count
+        }
+        
+        return Response(data, status=status.HTTP_200_OK)
