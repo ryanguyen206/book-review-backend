@@ -74,7 +74,7 @@ class UserCountView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         user_count = User.objects.count()
         data = {
-            'user-count':user_count
+            'user_count':user_count
         }
         
         return Response(data, status=status.HTTP_200_OK)
