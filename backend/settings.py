@@ -23,7 +23,7 @@ from datetime import timedelta
 SECRET_KEY = "django-insecure-5!67&%0x0_jx54=)hnf%+fk&tzrs$i!4!ah3ec5!$h83&hp7k3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -32,7 +32,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://bookreview.up.railway.app"
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app", 'https://book-review-backend-production-6da8.up.railway.app/']
 
 # Application definition
 
@@ -131,9 +131,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
