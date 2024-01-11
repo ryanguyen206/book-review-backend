@@ -24,37 +24,17 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        '/api/token',
-        '/api/token/refresh',
-    ]
-
-    return Response(routes)
-
-
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def getNotes(request):
-#     user = request.user
-#     notes = user.note_set.all()
-#     serializer = NoteSerializer(notes, many=True)
-#     return Response(serializer.data)
-
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            response_data = {
+                'username': user.username,
+            }
+            return Response(response_data, status=status.HTTP_201_CREATED)
 
-        response_data = {
-            'username': user.username,
-            'userid': user.id
-        }
-        return Response(response_data, status=status.HTTP_201_CREATED)
    

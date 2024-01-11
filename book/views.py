@@ -40,7 +40,6 @@ class GenreListAPIView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def list(self, request, *args, **kwargs):
-        print(request)
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         data = serializer.data
@@ -60,11 +59,9 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
     
     def get_queryset(self):
         book_review_id = self.kwargs.get('pk')
-        queryset = Message.objects.filter(book_review_id=book_review_id)
-        
+        queryset = Message.objects.filter(book_review_id=book_review_id)    
         return queryset
     def perform_create(self, serializer):
-        print(self.request.user)
         return super().perform_create(serializer)
     
 
