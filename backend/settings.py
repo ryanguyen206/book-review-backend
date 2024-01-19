@@ -132,8 +132,8 @@ DATABASES = {
         "NAME": config('PGDATABASE'),
         "USER": config('USER'),
         "PASSWORD": config("PASSWORD"),
-        "HOST": config["HOST"],
-        "PORT": config["PORT"],
+        "HOST": config("HOST"),
+        "PORT": config("PORT"),
     }
 }
 
