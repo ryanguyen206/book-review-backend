@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +27,14 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+
+
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+
 ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
@@ -33,7 +42,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://bookreview.up.railway.app"
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app", 'https://book-review-backend-production-6da8.up.railway.app', config('DBURL')]
+CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app", 'https://book-review-backend-production-6da8.up.railway.app']
 
 # Application definition
 
@@ -128,12 +137,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config('PGDATABASE'),
-        "USER": config('USER'),
-        "PASSWORD": config("PASSWORD"),
-        "HOST": config("HOST"),
-        "PORT": config("PORT"),
+        "default":dj_database_url.config(default=env("DATABASE_URL"),conn_max_age=1800),
     }
 }
 
