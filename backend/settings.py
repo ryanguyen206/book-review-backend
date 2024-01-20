@@ -39,7 +39,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://bookreview.up.railway.app"
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app", 'https://book-review-backend-production-6da8.up.railway.app']
+API_URL = os.getenv("API_URL")
+
+
+CSRF_TRUSTED_ORIGINS = ["https://bookreview.up.railway.app", API_URL]
 
 # Application definition
 
