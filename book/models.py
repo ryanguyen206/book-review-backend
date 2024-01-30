@@ -12,6 +12,7 @@ class BookReview(models.Model):
     review_title = models.CharField(max_length=50)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
+    view_count = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['-created']

@@ -6,6 +6,7 @@ urlpatterns = [
     path('book-review/<int:pk>/', views.OneBookReviewAPIView.as_view(), name='book_review-detail'),
     path('book-review/<int:pk>/update/', views.BookReviewUpdateView.as_view(), name='book_review-update'),
     path('book-review/<int:pk>/delete/', views.BookReviewDestroyView.as_view(), name='book_review-destroy'),
+    path('book-review/user/<int:pk>/', views.GetUserBookReviews.as_view(), name='user-book_reviews'),
     
     path('genre/', views.GenreListAPIView.as_view(), name='genre'),
     

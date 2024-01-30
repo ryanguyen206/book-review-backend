@@ -13,6 +13,21 @@ class OneBookReviewAPIView(generics.RetrieveAPIView):
     serializer_class = BookReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.view_count += 1
+        instance.save()
+        response = super().get(request, *args, **kwargs)
+        return response
+        
+class GetUserBookReviews(generics.ListAPIView):
+    serializer_class = BookReviewSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_queryset(self):
+        user_id = self.kwargs['pk']
+        queryset = BookReview.objects.filter(creator_id = user_id) 
+        return queryset
     
 class BookReviewListOrCreateView(generics.ListCreateAPIView):
     queryset = BookReview.objects.all()
@@ -23,10 +38,8 @@ class BookReviewListOrCreateView(generics.ListCreateAPIView):
 class BookReviewUpdateView(generics.UpdateAPIView):
     queryset = BookReview.objects.all()
     serializer_class = BookReviewSerializer
-    lookup_field = 'pk'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
-
+     
 class BookReviewDestroyView(generics.DestroyAPIView):
     queryset = BookReview.objects.all()
     serializer_class = BookReviewSerializer
@@ -38,7 +51,7 @@ class GenreListAPIView(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+        
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
@@ -50,8 +63,6 @@ class GenreListAPIView(generics.ListAPIView):
     
 # Message
 
-
-    
 class MessageListOrCreateAPIView(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
@@ -68,10 +79,11 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
 # User 
 
 class UserCountView(generics.ListAPIView):
-    def get(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         user_count = User.objects.count()
         data = {
             'user_count':user_count
         }
         
         return Response(data, status=status.HTTP_200_OK)
+    

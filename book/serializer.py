@@ -20,10 +20,11 @@ class BookReviewSerializer(serializers.ModelSerializer):
             'book_title',
             'review_title',
             'participants_count',
+            'view_count',
             'body',
-            'created'
+            'created',
         ]
-        read_only = ['participants_count',]
+        read_only = ['participants_count', 'view_count']
        
     def get_participants_count(self, obj):
         return obj.participants.count()
