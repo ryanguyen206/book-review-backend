@@ -79,7 +79,7 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
 # User 
 
 class UserCountView(generics.ListAPIView):
-    def list(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         user_count = User.objects.count()
         data = {
             'user_count':user_count
