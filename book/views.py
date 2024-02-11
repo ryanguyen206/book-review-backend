@@ -15,8 +15,10 @@ class OneBookReviewAPIView(generics.RetrieveAPIView):
     
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
-        instance.view_count += 1
-        instance.save()
+        
+        if request.query_params.get('source') == 'review':
+            instance.view_count += 1
+            instance.save()
         response = super().get(request, *args, **kwargs)
         return response
         
