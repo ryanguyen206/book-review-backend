@@ -71,7 +71,7 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def get_queryset(self):
-        book_review_id = self.kwargs.get('pk')
+        book_review_id = self.kwargs['pk']
         queryset = Message.objects.filter(book_review_id=book_review_id)    
         return queryset
     def perform_create(self, serializer):
