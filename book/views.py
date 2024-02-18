@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from django.contrib.auth.models import User
 from rest_framework import status
+from .permissions import IsReviewCreatorOrReadOnly
 
 #Book
 class OneBookReviewAPIView(generics.RetrieveAPIView):
@@ -40,12 +41,12 @@ class BookReviewListOrCreateView(generics.ListCreateAPIView):
 class BookReviewUpdateView(generics.UpdateAPIView):
     queryset = BookReview.objects.all()
     serializer_class = BookReviewSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsReviewCreatorOrReadOnly]
      
 class BookReviewDestroyView(generics.DestroyAPIView):
     queryset = BookReview.objects.all()
     serializer_class = BookReviewSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsReviewCreatorOrReadOnly]
 
      
 # Genre
