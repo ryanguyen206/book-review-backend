@@ -42,4 +42,18 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ['id', 'body', 'username', 'user', 'book_review', 'created']
         
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        if instance.book_review:
+            book_review_representation = {
+                'id': instance.book_review.id,
+                'book_title': instance.book_review.book_title,  
+            }
+            representation['book_review'] = book_review_representation
+        else:
+            representation['book_review'] = None 
+        return representation
+        
+ 
  

@@ -78,6 +78,16 @@ class MessageListOrCreateAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         return super().perform_create(serializer)
     
+class GetRecentMessagesAPIView(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_queryset(self):
+        user_id = self.kwargs['pk']
+        queryset = Message.objects.filter(book_review__creator=user_id)
+        return queryset
+
 
 # User 
 
